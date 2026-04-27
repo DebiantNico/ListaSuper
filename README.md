@@ -1,50 +1,73 @@
-# Welcome to your Expo app 👋
+# 🛒 Lista Súper
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Una aplicación móvil desarrollada en **React Native (Expo)** para gestionar listas de supermercado. Permite llevar un registro de la canasta básica mexicana, ajustar cantidades, modificar precios y guardar el progreso de forma independiente por sucursal (Walmart, Bodega Aurrerá, Costco, Sam's, 3B).
 
-## Get started
+## 📋 Requisitos Previos (Instalaciones necesarias)
 
-1. Install dependencies
+Para que el proyecto funcione correctamente en tu computadora, debes descargar e instalar estrictamente lo siguiente antes de clonar el código:
 
-   ```bash
-   npm install
-   ```
+1. **Node.js (Entorno de ejecución):**
+   * Ve a [nodejs.org](https://nodejs.org/).
+   * Descarga e instala la versión **LTS (Long Term Support)**. Esto instalará automáticamente `npm` (Node Package Manager), que necesitamos para instalar las dependencias.
+2. **Git (Control de versiones):**
+   * Ve a [git-scm.com](https://git-scm.com/downloads) y descarga el instalador para tu sistema operativo. Déjalo con las opciones predeterminadas durante la instalación.
+3. **Editor de Código (Recomendado):**
+   * Descarga [Visual Studio Code](https://code.visualstudio.com/).
+4. **En tu celular (Dispositivo físico):**
+   * Ve a la Play Store (Android) o App Store (iOS) y descarga la aplicación **Expo Go**.
 
-2. Start the app
 
-   ```bash
-   npx expo start
-   ```
+## 🚀 Instalación y Configuración Local
 
-In the output, you'll find options to open the app in a
+Sigue estos pasos puntuales en tu terminal (puedes usar la terminal integrada de VS Code abriendo el programa y presionando `` Ctrl + ` ``):
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+**1. Clonar el repositorio:**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+git clone [https://github.com/DebiantNico/ListaSuper.git](https://github.com/DebiantNico/ListaSuper.git)
 
-## Get a fresh project
+2. Entrar a la carpeta del proyecto:
 
-When you're ready, run:
+cd ListaSuperMex
 
-```bash
-npm run reset-project
-```
+3. Instalar las dependencias exactas del proyecto:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+npm install
+(Este comando lee el archivo package.json y descarga React Native, Expo y AsyncStorage).
 
-## Learn more
+4. Instalar las dependencias de Expo (Almacenamiento):
+Para asegurarnos de que la memoria de la aplicación funcione correctamente y tenga la versión compatible con nuestro Expo, ejecuta:
 
-To learn more about developing your project with Expo, look at the following resources:
+npx expo install @react-native-async-storage/async-storage
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+📱 Cómo ejecutar la aplicación
+Una vez que todo esté instalado, ejecuta el siguiente comando para levantar el servidor de desarrollo. Usamos la bandera
+-c para limpiar la caché y evitar errores de versiones anteriores:
 
-## Join the community
+npx expo start -c
+Para verlo en tu celular:
 
-Join our community of developers creating universal apps.
+Asegúrate de que tu computadora y tu celular estén conectados a la misma red Wi-Fi.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Abre la app Expo Go en tu celular.
+
+Si usas Android, escanea el código QR que aparece en la terminal directamente desde la app Expo Go.
+
+Si usas iOS, abre la cámara nativa de tu iPhone, enfoca el código QR y toca la notificación que te abrirá la app.
+
+📂 Estructura Principal del Proyecto
+Dado que estamos utilizando las versiones más recientes de Expo con el sistema de enrutamiento Expo Router, la estructura lógica se encuentra aquí:
+
+/app/index.tsx -> Pantalla principal y lógica core. Aquí reside la interfaz de la lista, los estados de los productos y la conexión con el almacenamiento local.
+
+AsyncStorage -> Utilizado para guardar el estado de las listas de manera persistente en el dispositivo (@list_Walmart, @list_Aurrera, etc.).
+
+👥 Flujo de Trabajo para el Equipo
+(Nota para el equipo: Definir aquí si se trabajará mediante Forks y Pull Requests o mediante Ramas/Branches en este mismo repositorio).
+
+Nunca trabajes directamente sobre la rama main.
+
+Antes de empezar tu tarea, asegúrate de tener la última versión: git pull origin main.
+
+Crea una rama para tu tarea: git checkout -b feature-nombreDeTuTarea.
+
+Al terminar, sube tus cambios y avisa al equipo para revisión.
