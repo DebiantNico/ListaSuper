@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
-import { FlatList, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { FlatList, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 // Canasta básica mexicana predeterminada
 const defaultBasket = [
@@ -21,17 +20,9 @@ const defaultBasket = [
 
 const stores = ['Walmart', 'Aurrerá', 'Costco', 'Sams', '3B'];
 
-type BasketItem = {
-  id: string;
-  name: string;
-  basePrice: number;
-  quantity: number;
-};
-
 export default function App() {
-  const insets = useSafeAreaInsets();
   const [currentStore, setCurrentStore] = useState('Aurrerá');
-  const [basket, setBasket] = useState<BasketItem[]>([]);
+  const [basket, setBasket] = useState([]);
   
   // Estados para el producto nuevo
   const [newProductName, setNewProductName] = useState('');
@@ -41,11 +32,11 @@ export default function App() {
     loadData(currentStore);
   }, [currentStore]);
 
-  const loadData = async (store: string): Promise<void> => {
+  const loadData = async (store) => {
     try {
       const savedData = await AsyncStorage.getItem(`@list_${store}`);
       if (savedData) {
-        setBasket(JSON.parse(savedData) as BasketItem[]);
+        setBasket(JSON.parse(savedData));
       } else {
         setBasket([...defaultBasket]);
       }
@@ -54,7 +45,7 @@ export default function App() {
     }
   };
 
-  const saveData = async (store: string, newBasket: BasketItem[]): Promise<void> => {
+  const saveData = async (store, newBasket) => {
     setBasket(newBasket);
     try {
       await AsyncStorage.setItem(`@list_${store}`, JSON.stringify(newBasket));
@@ -63,7 +54,7 @@ export default function App() {
     }
   };
 
-  const updateQuantity = (id: string, delta: number): void => {
+  const updateQuantity = (id, delta) => {
     const newBasket = basket.map(item => {
       if (item.id === id) {
         const newQty = Math.max(0, item.quantity + delta);
@@ -74,7 +65,7 @@ export default function App() {
     saveData(currentStore, newBasket);
   };
 
-  const updatePrice = (id: string, newPrice: string): void => {
+  const updatePrice = (id, newPrice) => {
     const newBasket = basket.map(item => {
       if (item.id === id) {
         return { ...item, basePrice: parseFloat(newPrice) || 0 };
@@ -131,7 +122,7 @@ export default function App() {
   );
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top }]}>
+    <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView 
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={{ flex: 1 }}
@@ -198,7 +189,7 @@ export default function App() {
           <Text style={styles.totalAmount}>${total.toFixed(2)}</Text>
         </View>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 
